@@ -7,7 +7,7 @@ int main(){
     
     int qtd_testes, maiorNumero = 0;
     cin >> qtd_testes;
-    int vetorNumeros[qtd_testes];
+    long long vetorNumeros[qtd_testes];
 
     //guardando todos os números digitados em um vetor
     for(int i = 0; i < qtd_testes; i++){
@@ -28,7 +28,7 @@ int main(){
     //imprimindo o vetor dos números armazenados
     //cout << "Numeros armazenados:" << vetorNumeros[0] <<  vetorNumeros[1] <<  vetorNumeros[2] << endl;
 
-    int fib[maiorNumero];
+    long long fib[maiorNumero];
         
     for(int j = 0; j <= maiorNumero; j++){
         if(j == 0){
