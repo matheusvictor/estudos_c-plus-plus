@@ -2,32 +2,33 @@
 using namespace std;
  
 int main() {
-  int numeroDias, passos, intervalos, numInicial, numFinal, soma;
-
+  int numeroDias, passos, numeroTestes, numInicial, numFinal, soma;
   cin >> numeroDias;
+  int vetorSomas[numeroDias+1];
+  
+  /**
+  O vetorSomas irá guardar, em cada posição, a soma de todos os números anteriores.
+  Ele será inicializado com zero, pois, a primeira soma será equivalente a 0 + primeiro número
+  digitado. Assim, o resultado será o número digitado. Do contrário, resutlaria em um número difirente e
+  isso afetaria as demais somas.
 
-  int passosDia[numeroDias];
+  Vídeo de explicação: https://www.youtube.com/watch?v=kzZydlDqtNM
+  */
 
-  for(int i=0; i < numeroDias; i++){
-    cin >> passos;
-    passosDia[i] = passos;
+  for(int i=1; i <= numeroDias; i++){ //começa pelo índice 1, pois o índice 0 estará preenchido com o número 0
+    cin >> vetorSomas[i]; //guarda o número digitado na posição i do vetor
+    vetorSomas[i] += vetorSomas[i-1]; //cada número lido na posição i, será somado com o número da posição anterior (i-1)
   }
 
-  cin >> intervalos;
-  int totalPassos[intervalos];
+  cin >> numeroTestes;
 
-  for(int j=0; j < intervalos; j++){
+  for(int j=0; j < numeroTestes; j++){
+    int totalPassos = 0;
     cin >> numInicial >> numFinal;
+    numInicial--;
+    totalPassos = (vetorSomas[numFinal] - vetorSomas[numInicial]);
 
-    for(int k=(numInicial-1); k < numFinal; k++){
-      soma += passosDia[k]; 
-    }
-    totalPassos[j] = soma;
-    soma = 0;
-  }
-
-  for(int l=0; l < intervalos; l++){
-    cout << totalPassos[l] << endl;
+    cout << totalPassos << endl;
   }
 }
 
