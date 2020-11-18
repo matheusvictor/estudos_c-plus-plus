@@ -1,33 +1,51 @@
 #include <iostream>
-#include <string>
 using namespace std;
 
 int main(){
     
-    int quantidadeJogadores, mortes, aux;
+    int quantidadeJogadores, maior = 0, aux;
     cin >> quantidadeJogadores;
-    int totalMortes[quantidadeJogadores];
+    int numeroMortes[quantidadeJogadores];
     
     for(int i=0; i < quantidadeJogadores; i++){
-        cin >> mortes;
-        totalMortes[i] = mortes;
+        cin >> numeroMortes[i];
     }
-    
-    for(int j=0; j < quantidadeJogadores; j++){
-      for(int k=(j+1); k < quantidadeJogadores; k++){
-        if(totalMortes[j] > totalMortes[k]){
-          aux = totalMortes[j];
-          totalMortes[j] = totalMortes[k];
-          totalMortes[k] = aux;        
-        }        
-      }
-      cout << totalMortes[j];
-      if(j != (quantidadeJogadores-1)){
-        cout << " ";
-      } else{
-        cout << endl;
+
+    maior = numeroMortes[0]; //iniciamos a variável maior como sendo o primeiro número do vetor totalMortes
+
+    //Verificando qual o maior número dentro do vetor numeroMortes e guardando-o na variável maior
+    for(int j = 1; j < quantidadeJogadores; j++){
+      if(numeroMortes[j] > maior){
+        maior = numeroMortes[j];
       }
     }
+
+    bool assassinatos[maior+1]; //criando um vetor que vai de 0 até o maior número encontrado dentro do vetor numeroMortes
+    //se o maior número for 100, por exemplo, o vetor terá 101 posições, sendo que vai de 0 a 100.
+
+    for(int k = 0; k < maior+1; k++){ //inicializando todas as posições de assassinatos[] como false.
+      assassinatos[k] = false;
+    }
+
+    for(int l = 0; l < quantidadeJogadores; l++){
+      int numAssassinatos = numeroMortes[l];
+      assassinatos[numAssassinatos] = true;
+      /*
+        numAssassinatos recebe o valor lido na posição l do vetor numeroMortes.
+        Exemplo: l = 0 e numeroMortes[l] = 3.
+        Assim, o vetor assassinatos[3] passa a ser true, sinalizando que o número 3 foi lido.
+
+        Vídeo da explicação: https://www.youtube.com/watch?v=gu7auHoys8g
+      */
+    }
+
+    for(int m = 0; m < maior+1; m++){
+      if(assassinatos[m] == true){
+        //se assassinatos na posição m for true, significa que li aquele número e, portanto, irei imprimí-lo
+        cout << m << " ";
+      }
+    }
+    cout << endl;
 }
 
 /**
@@ -52,5 +70,5 @@ E --> 8 29 84 26 1 398 42 4 0 | S --> 0 1 4 26 29 42 84 398
 E --> 3 1000000 8 1 | S --> 1 8 1000000
 
 Obs¹: Exige-se uma solução que não use ordenação, apenas vetores e o que foi aprendido nadisciplina até o momento.
-Obs²: É garantido que não há jogadores com a mesma quantidade de assassinatos na entradado programa (JUDE).
+Obs²: É garantido que não há jogadores com a mesma quantidade de assassinatos na entrada do programa (JUDE).
 */
