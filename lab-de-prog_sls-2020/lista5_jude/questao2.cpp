@@ -27,6 +27,7 @@ int main(){
   if(numeroAnos <= 100){
     cout << numeroAnos << " anos." << endl;
   }
+}
 
 /**
 Mariazinha quer resolver um problema interessante. Dadas as informações de população e a taxa de crescimento
