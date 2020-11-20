@@ -3,62 +3,60 @@ using namespace std;
 
 int main(){
     
-    int tamanho = 0, numeroProcurado, posicao;
-    bool flag = false;
-    cin >> tamanho;
-    long long vetorNumeros[tamanho];
+  int j, i, N, menor_i, aux, contador = 0;
+  cin >> N;
+  int vetor[N];
 
-    long long fib[tamanho];
-        
-    for(int j = 0; j <= tamanho; j++){
-        if(j == 0){
-          fib[0] = 0;
-        } else if(j == 1){
-          fib[1] = 1;
-        } else{
-          fib[j] = fib[j-1] + fib[j-2];
+  for(int k = 0; k < N; k++){
+    cin >> vetor[k];      
+  }
+
+  for(j = 0; j < N-1; j++){
+    menor_i = j;
+    for(i = j+1; i < N; i++)
+        if(vetor[i] < vetor[menor_i]){
+            menor_i = i;
+            contador++;
         }
-    }
+    aux = vetor[j];
+    vetor[j] = vetor[menor_i];
+    vetor[menor_i] = aux;    
+  }
 
-    cin >> numeroProcurado;
-   
-    for(int k = 0; k <= tamanho; k++){
-      if(numeroProcurado == fib[k]){
-        flag = true;
-        posicao = k+1;
-        break;
-      }
-    }
-
-    if(flag == true){
-      cout << numeroProcurado << " esta na posicao " << posicao << endl;
-    } else{
-      cout << numeroProcurado << " nao existe" << endl;
-    }
-
-    return 0;
+  if(contador == 0){
+    cout << "esta ordenado: executou " << contador << " permutas" << endl;
+  } else{
+    cout << "nao esta ordenado: executou " << contador << " permutas" << endl;
+  }
+  return 0;
 }
+
 /**
-Na matemática, a Sucessão de Fibonacci (também chamada de Sequência de Fibonacci) é uma sequência de números inteiros, começando normalmente
-por 0 e 1, na qual, cada termo subsequente corresponde à soma dos dois anteriores. A sequência recebeu o nome do matemático italiano Leonardo Fibonacci,
-que descreveu, no ano de 1202, o crescimento de uma população de coelhosa partir desta sequência, que, no entanto, já era conhecida na antiguidade. Os números de Fibonacci são,
-portanto, os números que compõem a seguinte sequência.
+Um algoritmo de ordenação de vetores executa diversas permutas em posições do vetor até que o mesmo esteja completamente ordenado.
+Dessa forma, é possível saber se um vetor está ordenado, contando o número de permutas que o algoritmo de ordenação executa. Ou seja,
+em um vetor ordenado o algoritmo executa zero permutas, enquanto que em um vetor desordenado o algoritmo executa uma ou mais permutas.
 
-0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987,1597, 2584,...
+        for(j = 0; j < N-1; j++){
+            menor_i = j;
+            for(i = j+1; i < N; i++){
+                if(vetor[i] < vetor[menor_i]){
+                    menor_i = i;
+                }
+            aux = vetor[j];
+            vetor[j] = vetor[menor_i];
+            vetor[menor_i] = aux;
+            }
+        }
 
-Dessa forma, faça um programa que preencha um vetor com N (2 ≤ N ≤ 50) números em uma sequência de Fibonacci. Após preencher o vetor, implemente uma busca binária, de forma a imprimir a posição
-P (1 ≤ P ≤ N) de um número X de Fibonacci, caso o mesmo exista no vetor.
+Faça um programa que leia um vetor de tamanho N (2 ≤ N ≤ 50) e, usando (modificando) o algoritmo de ordenação acima, diga se o vetor já estava ordenado
+e, caso contrário, diga que não está ordenado e quantas permutas P (1 ≤ P) foram necessárias para ordenar o vetor.
 
-Entrada (E): A entrada contém uma linha com: um valor inteiro N, correspondente à quantidade de números Fibonaccia serem inseridos no vetor; e um número X, correspondente ao número Fibonacci a ser
-encontrado com a busca binária.
+Entrada (E): A entrada contém duas linhas: a primeira comum valor inteiro N,correspondente ao  tamanho  do  vetor;  ea  segunda  com  N  inteiros, correspondentes
+aos números que irão preencher o vetor.
 
-Saída (S): Imprima a mensagem “X esta na posicao P” ou “X nao existe”, de acordo com a especificação fornecida.
+Saída (S): Imprima  a  mensagem  “esta  ordenado:  executou  0  permutas”  ou  “nao esta ordenado: executou P permutas”, de acordo com a especificação fornecida
 
 Exemplos:
-E --> 11 21 | S --> 21 esta na posicao 9
-E --> 11 144 | S --> 144 nao existe
-E --> 19 377 | S --> 377 esta na posicao 15
-E --> 3 1 | S --> 1 esta na posicao 2 OU 1 esta na posicao 3
-E --> 4 0 | S --> 0 esta na posicao 1 
-E --> 8 6 | S --> 6 nao existe
+E --> 8  1  2  3  4  5  6  7  8 | S --> esta ordenado: executou 0 permutas
+E --> 8  8  7  6  5  4  3  2  1 | S --> nao esta ordenado: executou 16 permutas
 */
