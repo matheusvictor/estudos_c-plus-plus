@@ -4,21 +4,34 @@ using namespace std;
 
 int main(){
 
+  //char alfabeto[] = {'a', 'b', 'c', 'd','e', 'f','g','h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
   int k; 
   string palavraLida; 
   cin >> k >> palavraLida;
   int tamanhoPalavra = palavraLida.size(); //guarda o tamanho da palavra
-
   char palavraCod[tamanhoPalavra]; //cria um vetor de caractéres com o tamanho da palavra lida
 
   for(int i = 0; i < tamanhoPalavra; i++){
-     char letraCod = palavraLida[i] + k; //cada caractér da palavra lida será codificado de acordo com o k passado na entrada
-     palavraCod[i] = letraCod; // o vetor palavraCod irá guardar, em cada uma de suas posições, o caractér da palavra anterior codificado
-  }
+    if(palavraLida[i] + k > 'z'){
+      palavraCod[i] = 'a' + ((palavraLida[i] + k) - 'z' - 1);
+      /*
+      Se a letra, ao ser codificada, tiver passado de 'z', esta será correspondente à
+      'a' + caracter correspondente ao caracter codificado - 'z' - 1.
+      Em termos de números da tabela ASCII, no caso da palavra 'vinho', o caracter 'v' ficaria:
 
-  for(int j = 0; j < tamanhoPalavra; j++){
-     cout << palavraCod[j]; //imprimindo a palavra codificada
-  }
+      97 + ((118+6) - 122 - 1) --> 97 + (124 - 123) --> 98;
+
+      Na tabela ASCII, 98 corresponde a 'b'.
+
+      Tabela ASCII: https://s2.glbimg.com/fEu3dqWDHAo0Gi1rGJin--DMiT4=/695x0/s.glbimg.com/po/tt2/f/original/2015/02/12/imagem28.jpg
+      */
+    } else{
+     palavraCod[i] = palavraLida[i] + k; // o vetor palavraCod irá guardar, em cada uma de suas posições, o caractér da palavra anterior codificado
+    }
+     cout << palavraCod[i];
+     //cout << alfabeto[k];
+  }  
+  return 0;
 }
 
 /**
