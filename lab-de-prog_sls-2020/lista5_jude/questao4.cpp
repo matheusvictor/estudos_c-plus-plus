@@ -1,62 +1,85 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
 int main(){
-    
-    int j, i, N, menor_i, aux, contador = 0;
-    cin >> N;
-    int vetor[N];
 
-    for(int k = 0; k < N; k++){
-      cin >> vetor[k];      
-    }
+  int dimensao = 3, soma = 0;
+  int matriz[dimensao][dimensao], somaLinhas[dimensao], somaColunas[dimensao], somaDiagonal1[dimensao], somaDiagonal2[dimensao];
+  bool quadradoPerfeito = false;
 
-    for(j = 0; j < N-1; j++){
-      menor_i = j;
-      for(i = j+1; i < N; i++){
-          if(vetor[i] < vetor[menor_i]){
-              menor_i = i;
-              contador++;
-          }
-      aux = vetor[j];
-      vetor[j] = vetor[menor_i];
-      vetor[menor_i] = aux;
-      }
+  for(int i = 0; i < dimensao; i++){
+    for(int j = 0; j < dimensao; j++){
+      cin >> matriz[i][j];
     }
-    if(contador == 0){
-      cout << "esta ordenado: executou 0 permutas" << endl;
-    } else{
-      cout << "nao esta ordenado: executou " << contador << " permutas" << endl;
+  }
+
+  for(int i = 0; i < dimensao; i++){
+    soma = 0;
+    for(int j = 0; j < dimensao; j++){
+      soma += matriz[i][j];      
     }
-    return 0;
+    somaLinhas[i] = soma;
+  }
+
+  for(int j = 0; j < dimensao; j++){
+    soma = 0;
+    for(int i = 0; i < dimensao; i++){
+      soma += matriz[j][i];      
+    }
+    somaColunas[j] = soma;
+  }
+
+  soma = 0;
+  for(int i = 0; i < dimensao; i++){    
+    soma += matriz[i][i];
+    somaDiagonal1[i] = soma;
+  }
+
+  soma = 0;
+  int j = dimensao-1;
+  for(int i = 0; i < dimensao; i++){
+    soma += matriz[i][j];
+    j--;
+    somaDiagonal2[i] = soma;
+  }
+
+  bool linhasIguais = false, colunasIguais = false;
+
+  if(somaLinhas[0] == somaLinhas[1] && somaLinhas[1] == somaLinhas[2]){
+    linhasIguais = true;    
+  }
+  
+  if(somaColunas[0] == somaColunas[1] && somaColunas[1] == somaColunas[2]){
+    colunasIguais = true;    
+  }
+
+  if(linhasIguais == true && colunasIguais == true && (somaDiagonal1[dimensao-1] == somaDiagonal2[dimensao-1])){
+    cout << "eh um quadrado magico" << endl;
+  } else{
+    cout << "nao eh um quadrado magico" << endl;
+  } 
+  return 0;
 }
 
 /**
-Um algoritmo de ordenação de vetores executa diversas permutas em posições do vetor até que o mesmo esteja completamente ordenado.
-Dessa forma, é possível saber se um vetor está ordenado, contando o número de permutas que o algoritmo de ordenação executa. Ou seja,
-em um vetor ordenado o algoritmo executa zero permutas, enquanto que em um vetor desordenado o algoritmo executa uma ou mais permutas.
+Na Idade Média os quadrados mágicos se tornaram muito populares pelo seu uso em Pantáculose Talismãs, onde eram associados 
+a Planetas que atribuíam a eles o poder de atrair proteção astral para seus detentores. Uma matriz quadrada inteira (matriz de números
+inteiros com mesmo número de linhas e colunas) é um quadrado mágico se a soma dos elementos de cada linha, a soma dos elementos de cada
+coluna e a soma dos elementos das  principal e secundária são todas iguais. Exemplo de um quadrado mágico:
 
-        for(j = 0; j < N-1; j++){
-            menor_i = j;
-            for(i = j+1; i < N; i++){
-                if(vetor[i] < vetor[menor_i]){
-                    menor_i = i;
-                }
-            aux = vetor[j];
-            vetor[j] = vetor[menor_i];
-            vetor[menor_i] = aux;
-            }
-        }
+ 3   4   8
+ 10  5   0
+ 2   6   7
 
-Faça um programa que leia um vetor de tamanho N (2 ≤ N ≤ 50) e, usando (modificando) o algoritmo de ordenação acima, diga se o vetor já estava ordenado
-e, caso contrário, diga que não está ordenado e quantas permutas P (1 ≤ P) foram necessárias para ordenar o vetor.
+ Faça um programa que leia uma matriz quadrada e inteira, com tamanho 3 X 3, e diga se a matriz é um quadrado mágico.
 
-Entrada (E): A entrada contém duas linhas: a primeira comum valor inteiro N,correspondente ao  tamanho  do  vetor;  ea  segunda  com  N  inteiros, correspondentes
-aos números que irão preencher o vetor.
+ Entrada(E): A entrada contém uma com 9 inteiros, sendo que: os 3 primeiros correspondem à primeira linha da matriz; os 3 seguintes correspondem
+ à segunda  linha  da  matriz;  e,  por  fim,  os  3 últimos  correspondem  à  terceira  e última linha da matriz.
 
-Saída (S): Imprima  a  mensagem  “esta  ordenado:  executou  0  permutas”  ou  “nao esta ordenado: executou P permutas”, de acordo com a especificação fornecida
+ Saída(S): Imprima  a  mensagem  “eh  um  quadrado  magico”  ou  “nao  eh  um  quadrado magico”, de acordo com a especificação fornecida
 
-Exemplos:
-E --> 8  1  2  3  4  5  6  7  8 | S --> esta ordenado: executou 0 permutas
-E --> 8  8  7  6  5  4  3  2  1 | S --> nao esta ordenado: executou 16 permutas
-*/
+ Exemplos:
+ E --> 3  4810  502  67 | S --> eh um quadrado magico
+ E --> 8  10  56  1  1211  9 7 | S --> nao eh um quadrado magico
+ */
