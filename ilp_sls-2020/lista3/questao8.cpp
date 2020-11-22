@@ -5,25 +5,49 @@ using namespace std;
 
 int main(){ 
 
-    string nomeAluno, estadosInformados[6];
-    string estados[] = {"Mato Grosso", "Mato Grosso do Sul", "Goiás", "Paraná", "Rio Grande do Sul", "Santa Catarina"};
-    int acertos = 0;
+  int qtd = 6;
+  string nomeAluno, estadosInformados[] = {"","","","","",""};
+  string estados[] = {"Mato Grosso", "Mato Grosso do Sul", "Goiás", "Paraná", "Rio Grande do Sul", "Santa Catarina"};
+  int acertos = 0;
 
-    getline(cin, nomeAluno);
+  getline(cin, nomeAluno);
 
-    for(int i = 0; i < 6; i ++){
-        getline(cin, estadosInformados[i]);
-
-        for(int j = 0; j < 6; j ++){
-          if(estadosInformados[i] == estados[j]){
-            acertos++;
-          }
+  for(int i = 0; i < qtd; i++){
+    string resposta = "";
+    getline(cin, resposta);
+    if(i == 0){
+      estadosInformados[i] = resposta;
+    } else{
+      bool repetido = false;
+      for(int j = 0; j < i; j++){
+        if(resposta == estadosInformados[j]){
+          repetido = true;
+          break;
         }
+      }
+      if(repetido == false){
+        estadosInformados[i] = resposta;
+      }
     }
+  }
+  
+  for(int i = 0; i < qtd; i++){
+    // caso o estadoInformado esteja vazio, ignore
+    if(estadosInformados[i] == ""){
+      continue;
+    }
+    for(int j = 0; j < qtd; j++){
+      //caso o estado esteja na lista de estados esperados
+      if(estadosInformados[i] == estados[j]){
+        acertos++;
+        break;
+      }
+    }
+  }
 
-    cout << nomeAluno << " sua pontuação é de " << acertos << " pontos." << endl;
+  cout << nomeAluno << " sua pontuação é de " << acertos << " pontos." << endl;
 
-    return 0;
+  return 0;
 }
 
 /**
